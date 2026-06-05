@@ -79,3 +79,67 @@ url = {https://doi.org/10.11588/data/R9IKCF}<br />
   publisher={Elsevier}<br />
 }
 
+
+---
+
+## Environment Setup & Installation
+
+To run this code locally or on a server, it is highly recommended to isolate the dependencies using a Python virtual environment. 
+
+### 1. System Dependencies (Headless / WSL Environments)
+If you are running this on a headless Linux server or within Windows Subsystem for Linux (WSL), the visualization libraries (Plotly/Kaleido) require specific shared graphical libraries to render and save 3D plots to PDF. 
+
+Run the following to install the necessary system dependencies:
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install python3-venv python3-pip -y
+sudo apt install libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libasound2t64 -y
+
+```
+
+### 2. Initialize the Virtual Environment
+
+Create and activate an isolated environment:
+
+```bash
+python3 -m venv deftrans_env
+source deftrans_env/bin/activate
+
+```
+
+### 3. Install PyTorch (CUDA)
+
+To leverage GPU acceleration, install the CUDA-enabled version of PyTorch. (The command below is for CUDA 12.1; adjust the URL if your hardware requires a different version):
+
+```bash
+pip install --upgrade pip
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+```
+
+### 4. Install Project Requirements
+
+Install the remaining mathematical, visualization, and dataset utilities:
+
+```bash
+pip install -r requirements.txt
+
+```
+
+### 5. Download the Dataset
+This project utilizes the ModelNet10 dataset provided by Princeton University. You can download and extract it directly into the project root using standard command-line tools:
+
+```bash
+# Download the dataset zip file
+wget http://3dvision.princeton.edu/projects/2014/3DShapeNets/ModelNet10.zip
+
+# Extract the contents (requires the 'unzip' package)
+unzip ModelNet10.zip
+
+# Clean up the downloaded zip archive
+rm ModelNet10.zip
+
+```
+
+*Note: Ensure the extracted folder is named `ModelNet10` and sits in the same directory as the Jupyter notebook.*
+

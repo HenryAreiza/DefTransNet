@@ -1,0 +1,17 @@
+# Core Scientific & Data Processing
+numpy
+scipy
+pandas
+
+# Plotting & Visualization
+plotly
+kaleido
+
+# Machine Learning Utilities
+tensorboard
+torch-tps
+
+# Dataset Management & Environment
+kagglehub
+path
+jupyterlab
