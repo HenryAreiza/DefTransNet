@@ -167,7 +167,7 @@ Headless environments lack the native display drivers required to silently open 
 To fix this, go to **Cell 6** in the notebook and change the visualization flag from `1` to `0`:
 ```python
 # Change this:
-# net = DefTransNet(show=1)
+net = DefTransNet(show=1)
 
 # To this:
 net = DefTransNet(show=0)
