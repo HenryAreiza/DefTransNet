@@ -107,6 +107,8 @@ source deftrans_env/bin/activate
 
 ```
 
+*Note for Beginners: A virtual environment only remains active as long as your current terminal window is open. If you close your terminal, restart your computer, or open a new tab, you **must** reactivate the environment by navigating to the project folder and running `source deftrans_env/bin/activate` again before executing any code. You will know it is active when `(deftrans_env)` appears at the beginning of your terminal prompt.*
+
 ### 3. Install PyTorch (CUDA)
 
 To leverage GPU acceleration, install the CUDA-enabled version of PyTorch. (The command below is for CUDA 12.1; adjust the URL if your hardware requires a different version):
@@ -127,6 +129,7 @@ pip install -r requirements.txt
 ```
 
 ### 5. Download the Dataset
+
 This project utilizes the ModelNet10 dataset provided by Princeton University. You can download and extract it directly into the project root using standard command-line tools:
 
 ```bash
@@ -142,4 +145,36 @@ rm ModelNet10.zip
 ```
 
 *Note: Ensure the extracted folder is named `ModelNet10` and sits in the same directory as the Jupyter notebook.*
+
+### 6. Running the Code (Jupyter Lab)
+
+With your environment active and dataset downloaded, you can start the Jupyter Lab server to open and run `DefTransNet.ipynb`.
+
+Start the server using the following command:
+```bash
+jupyter lab --no-browser
+
+```
+
+The terminal will output a URL (usually starting with `http://localhost:8888/`). Copy and paste this link into your web browser to open the workspace.
+
+#### **Important Configuration for Your Environment**
+
+This notebook uses Plotly and Kaleido to generate interactive 3D graphs and save them as PDF files during the evaluation phase. You must configure the notebook based on the operating system you are using:
+
+* **For Headless Environments (WSL, Remote Servers, SSH):**
+Headless environments lack the native display drivers required to silently open Chrome and render PDFs, which will cause the training loop to crash.
+To fix this, go to **Cell 6** in the notebook and change the visualization flag from `1` to `0`:
+```python
+# Change this:
+# net = DefTransNet(show=1)
+
+# To this:
+net = DefTransNet(show=0)
+
+```
+This safely disables the PDF generation, allowing the math and training loops to run at full speed.
+
+* **For Desktop Environments (Ubuntu Desktop, Windows natively, etc.):**
+If you are running the code on an operating system with a standard graphical user interface and Google Chrome installed, you can leave the code exactly as is (`show=1`). The notebook will successfully generate and save the 3D visual evaluations into a `Plots/` directory.
 
